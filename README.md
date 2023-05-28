@@ -1,5 +1,5 @@
 # ComputerGuessMyNumber
-Number guessing game but the role is reversed implemented as console application using C++.
+Number guessing game but the role is reversed implemented as console application.
   
   
 Player set the number to be guessed and  
