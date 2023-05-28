@@ -7,4 +7,4 @@ the computer will try to guess the number.
   
   
 Example:  
-<img src="https://github.com/luckykurniawan/ComputerGuessMyNumber/assets/11532809/b375e473-7301-4d76-ae2d-354891bae97f" width=40% height=40%>  
+<img src="https://github.com/luckykurniawan/ComputerGuessMyNumber/assets/11532809/b375e473-7301-4d76-ae2d-354891bae97f" width=50% height=50%>  
