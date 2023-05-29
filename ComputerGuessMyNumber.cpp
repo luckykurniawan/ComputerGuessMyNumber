@@ -60,7 +60,7 @@ int main()
 
 		std::cout << "Guessing...\n";
 
-		if (rngNum < midProbability)
+		if (rngNum <= midProbability)
 		{
 			//================== using midrange value  ==================
 			guess = static_cast<int>((lowGuessVal + highGuessVal) / 2);
