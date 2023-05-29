@@ -25,7 +25,6 @@ int askNumber(std::string text, int lowVal, int highVal);
 int main()
 {
 	const int lowVal = settings::lowRangeVal, highVal = settings::highRangeVal; 
-	const int switchRange = 20; //range to switch algorithm
 	int tries = 0;
 	int secretNumber = 0;
 	int guess = 0;
@@ -47,24 +46,21 @@ int main()
 	do
 	{
 		std::cout << "Guessing...\n";
-		if (highGuessVal - lowGuessVal < switchRange) // change to midvalue if range is already small enough 
-		{
-		//================== using midrange value  ==================
-			guess = static_cast<int>((lowGuessVal + highGuessVal) / 2);
-		//=============================================================
-		}
-		else {
+
+		////================== using midrange value  ==================
+		//	guess = static_cast<int>((lowGuessVal + highGuessVal) / 2);
+		////=============================================================
+
 		//============================ using normal distribution rng ============================
 		// using normal distribution so guess is not the same all the time
 		// while ensuring higher chance of picking value around the midrange 
-		// (trying to simulate human guessing)
-			std::normal_distribution<double> distribution(((lowGuessVal + highGuessVal) / 2), 2.0);
-			do
-			{
-				guess = static_cast<int>(distribution(generator));
-			} while (guess < lowGuessVal || guess > highGuessVal);
-			//=======================================================================================
-		}
+		std::normal_distribution<double> distribution(((lowGuessVal + highGuessVal) / 2), 2.0);
+		do
+		{
+			guess = static_cast<int>(distribution(generator));
+		} while (guess < lowGuessVal || guess > highGuessVal);
+		//=======================================================================================
+
 
 		//delay the output to simulate thinking
 		std::this_thread::sleep_for(std::chrono::seconds(settings::outputDelay));
