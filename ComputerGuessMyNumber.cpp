@@ -28,11 +28,14 @@ int main()
 	int tries = 0;
 	int secretNumber = 0;
 	int guess = 0;
-
+	
 	int lowGuessVal = lowVal, 
 		highGuessVal = highVal; //known low and high value by computer 
 
-	
+	int midProbability = 0; //probability for choosing midrange guess
+
+	int rngNum = 0;
+
 	std::cout << "\tWelcome to Computer Guess My Number\n\n";
 
 	secretNumber = askNumber("Enter a number for the computer to guess", lowVal, highVal);
@@ -45,22 +48,35 @@ int main()
 	//computer guess the number
 	do
 	{
+		//set the probability value
+		if (tries == 0)
+			midProbability = 90;
+		else if (tries == 1)
+			midProbability = 50;
+
+		//get the number for probability
+		std::uniform_int_distribution<> uniDist(1, 100);
+		rngNum = uniDist(generator);
+
 		std::cout << "Guessing...\n";
 
-		////================== using midrange value  ==================
-		//	guess = static_cast<int>((lowGuessVal + highGuessVal) / 2);
-		////=============================================================
-
-		//============================ using normal distribution rng ============================
-		// using normal distribution so guess is not the same all the time
-		// while ensuring higher chance of picking value around the midrange 
-		std::normal_distribution<double> distribution(((lowGuessVal + highGuessVal) / 2), 2.0);
-		do
+		if (rngNum < midProbability)
 		{
-			guess = static_cast<int>(distribution(generator));
-		} while (guess < lowGuessVal || guess > highGuessVal);
-		//=======================================================================================
-
+			//================== using midrange value  ==================
+			guess = static_cast<int>((lowGuessVal + highGuessVal) / 2);
+			//=============================================================
+		}
+		else {
+			//============================ using normal distribution rng ============================
+			// using normal distribution so guess is not the same all the time
+			// while ensuring higher chance of picking value around the midrange 
+				std::normal_distribution<double> normalDist(((lowGuessVal + highGuessVal) / 2), 2.0);
+				do
+				{
+					guess = static_cast<int>(normalDist(generator));
+				} while (guess < lowGuessVal || guess > highGuessVal);
+			//=======================================================================================
+		}
 
 		//delay the output to simulate thinking
 		std::this_thread::sleep_for(std::chrono::seconds(settings::outputDelay));
